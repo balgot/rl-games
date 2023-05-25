@@ -1,0 +1,20 @@
+# general information about the project
+[project]
+name = "games"
+version = "0.0.0"
+description = "Testing games."
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+    { name = "Michal Barnišin", email = "michal.barnisin14+azero@gmail.com" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent"
+]
+
+
+# settings for building the package
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
