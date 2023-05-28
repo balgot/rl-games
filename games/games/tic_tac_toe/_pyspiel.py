@@ -1,3 +1,11 @@
+"""
+TODO: different representations from different players' perspectives, should be
+like:
+    1 - my mark
+    2 - opponents
+    0 - empty space
+"""
+
 import sys
 import time
 

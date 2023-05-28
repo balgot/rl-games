@@ -21,4 +21,4 @@ scored more points
 ## Suuported RL Libraries
 
 * `open_spiel`
-* `stable_baselines3`
+* `stable_baselines3` (TBD.)
