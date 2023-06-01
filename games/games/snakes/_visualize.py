@@ -24,12 +24,11 @@ COLORS = {
 class _InteractiveSnakes:
     def __init__(self, game: Snakes, player1, player2) -> None:
         self._players = [player1, player2]
-        self.game = game
-
-        self.HEIGHT = game.height * CELL_SIZE
-        self.WIDTH = game.width * CELL_SIZE
 
         pygame.init()
+        self.game = game
+        self.HEIGHT = game.height * CELL_SIZE
+        self.WIDTH = game.width * CELL_SIZE
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
 
     def is_terminal(self):
@@ -55,7 +54,7 @@ class _InteractiveSnakes:
         self._human_player()
         for idx, p in zip(_PLAYERS, self._players):
             if p is not None:
-                action = p(self.game) # TODO: state
+                action = p(self.game) # TODO: use pyspiel.state
                 self.game.make_move(idx, action)
 
     def _human_player(self):

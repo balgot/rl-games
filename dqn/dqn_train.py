@@ -1,9 +1,7 @@
-import sys, os
-sys.path.append(os.path.join(os.path.dirname(__file__), "../games"))
-
 from pyspiel import load_game
 from open_spiel.python.algorithms import dqn
-from tic_tac_toe import register_pyspiel
+from games.tic_tac_toe import register_pyspiel
+import tensorflow as tf
 register_pyspiel(4, 4, 2, "ttt442")
 
 
@@ -23,7 +21,9 @@ def train(config):
             num_actions=num_actions,
             hidden_layers_sizes=hidden_layers_sizes,
             replay_buffer_capacity=config['replay_buffer_capacity'],
-            batch_size=config['batch_size']) for idx in range(num_players)
+            batch_size=config['batch_size']
+        )
+        for idx in range(num_players)
     ]
 
     for ep in range(config['num_train_episodes']):

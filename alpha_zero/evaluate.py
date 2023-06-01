@@ -11,7 +11,7 @@ import pyspiel
 import tqdm
 from azero import load_mcts_bot, load_trained_bot
 
-from tic_tac_toe import register_pyspiel
+from games.tic_tac_toe import register_pyspiel
 register_pyspiel(4, 4, 2, "ttt442")
 import wandb
 
