@@ -1,8 +1,8 @@
 import numpy as np
 from typing import Iterable
 
-_EMPTY = 2
-_PLAYERS_STR = ['X', 'O', ' ']
+EMPTY = 2
+PLAYERS_STR = ['X', 'O', ' ']
 
 
 class TTT:
@@ -12,7 +12,7 @@ class TTT:
         self._moves_played = 0
         self._rows = rows
         self._cols = cols
-        self.board = np.full((rows, cols), _EMPTY)
+        self.board = np.full((rows, cols), EMPTY)
         self.to_connect = to_connect
 
     def is_full(self) -> bool:
@@ -24,7 +24,7 @@ class TTT:
         for i, row in enumerate(self.board):
             line = "┃"
             for e in row:
-                line += " " + _PLAYERS_STR[e] + " ┃"
+                line += " " + PLAYERS_STR[e] + " ┃"
             lines.append(line)
             if i != self._rows - 1:
                 lines.append("┣━━━" + "━━━".join("╋" * (self._cols - 1)) + "━━━┫")
@@ -35,14 +35,14 @@ class TTT:
         return self.to_str()
 
     def __str__(self) -> str:
-        return f"""{self.to_str()}\nScores {_PLAYERS_STR[:2]}: {self._scores}"""
+        return f"""{self.to_str()}\nScores {PLAYERS_STR[:2]}: {self._scores}"""
 
     def returns(self) -> tuple[int, int]:
         return self._scores
 
     def _check_line(self, x, y, dx, dy):
         mark = self.board[y, x]
-        assert mark != _EMPTY
+        assert mark != EMPTY
         _found = 1  # current position
         for m in [-1, 1]:
             _x = x
@@ -59,8 +59,15 @@ class TTT:
         return _found >= self.to_connect
 
     def apply_action(self, action: tuple[int, int]) -> None:
+        """
+        Play the action for the current player.
+
+        Arguments
+        =========
+            action: position to put the symbol on, (row, col)
+        """
         assert not self.is_full()
-        assert self.board[action] == _EMPTY
+        assert self.board[action] == EMPTY
 
         y, x = action
         mark = self._next_player
@@ -75,19 +82,28 @@ class TTT:
         self._next_player = 1 - self._next_player
 
     def legal_actions(self) -> Iterable[tuple[int, int]]:
+        """
+        Return list of legal actions for current player.
+
+        Returns
+        =======
+            list of (row, col) pairs
+        """
         return [
             (r, c) for r in range(self._rows)
             for c in range(self._cols)
-            if self.board[r, c] == _EMPTY
+            if self.board[r, c] == EMPTY
         ]
 
 
 if __name__ == "__main__":
-    game = TTT(4, 4, 2)
+    game = TTT(2, 2, 1)
     while not game.is_full():
-        player = _PLAYERS_STR[game._next_player]
+        player = PLAYERS_STR[game._next_player]
         legal_actions = set(game.legal_actions())
-        while True:
-            print(game)
-            row, col = eval(input(f"Enter next move for {player}: "))
-            game.apply_action((row, col))
+        print(game)
+        print(f"{legal_actions=}")
+        row, col = eval(input(f"Enter next move (row, col) for {player}: "))
+        game.apply_action((row, col))
+    print(game)
+    print(f"{game.returns()=}")

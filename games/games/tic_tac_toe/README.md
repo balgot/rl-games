@@ -18,7 +18,6 @@ directions
 scored more points
 
 
-## Suuported RL Libraries
+## Supported RL Libraries
 
 * `open_spiel`
-* `stable_baselines3` (TBD.)
