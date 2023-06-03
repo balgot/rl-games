@@ -136,7 +136,7 @@ def register_pyspiel(rows: int, cols: int, to_connect: int, name: str):
             for row in range(rows):
                 for col in range(cols):
                     cell_state = state.board[row, col]
-                    cs = cell_state if cell_state == EMPTY else (cell_state == player)
+                    cs = cell_state if cell_state == EMPTY else int(cell_state == player)
                     obs[cs, row, col] = 1
 
         def string_from(self, state, player):
