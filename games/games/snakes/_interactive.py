@@ -1,4 +1,4 @@
-from games.snakes._game import Snakes, EMPTY, PLAYER1, PLAYER1_HEAD, PLAYER2, PLAYER2_HEAD, FRUIT, _PLAYERS
+from ._game import Snakes, EMPTY, PLAYER1, PLAYER1_HEAD, PLAYER2, PLAYER2_HEAD, FRUIT, _PLAYERS
 import pygame
 import time
 
@@ -77,15 +77,16 @@ class _InteractiveSnakes:
                     self.game.make_move(_PLAYERS[player], action)
 
 
-if __name__ == "__main__":
-    game = Snakes(50, 50)
-    ip = _InteractiveSnakes(game, None, None)
+def play_pygame(width: int, heaight: int, player1=None, player2=None, delay=0.05):
+    game = Snakes(width, heaight)
+    ip = _InteractiveSnakes(game, player1, player2)
     print("Initiated", ip)
     while not ip.is_terminal():
         ip.next_move()
-        time.sleep(1 / 2)
+        time.sleep(delay)
     print(game)
     print(game.winner())
 
 
-
+if __name__ == "__main__":
+    play_pygame(5, 5)

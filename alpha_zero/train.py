@@ -7,7 +7,7 @@ def make_parser():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("--ttt", action='store_true', help="Play Tic-Tac-Toe", default=True)
+    group.add_argument("--ttt", action='store_true', help="Play Tic-Tac-Toe", default=False)
     group.add_argument("--snakes", action='store_true', help="Play Multiplayer Snakes", default=False)
     group.add_argument("--cards", action='store_true', help="Play Cards", default=False)
 
@@ -22,7 +22,7 @@ def make_parser():
     parser.add_argument("--checkpoint-freq", type=int, default=10, metavar="N", help="How often save checkpoints")
     parser.add_argument("--checkpoint-dir", type=str, default="./logs", metavar="FILE", help="Folder to save logs and checkpoints to")
 
-    parser.add_argument("--model", type=str, choices=["mlp", "cnn", "resnet"], default="mlp", help="Model type")
+    parser.add_argument("--model", type=str, choices=["mlp", "conv2d", "resnet"], default="mlp", help="Model type")
     parser.add_argument("--nn-width", type=int, default=256, metavar="N", help="Hidden layer size")
     parser.add_argument("--nn-depth", type=int, default=3, metavar="N", help="Number of hidden layers in torso")
 
@@ -33,7 +33,7 @@ def make_parser():
 
 config = dict(
     weight_decay=1e-4,
-    replay_buffer_reuse=8,
+    replay_buffer_reuse=4,
     actors=4,
     evaluators=2,
     policy_alpha=0.25,
@@ -72,8 +72,13 @@ def main():
     if args.ttt:
         from games import TTT_NAME  # it registers the game
         cfg["game"] = TTT_NAME
+    elif args.snakes:
+        from games import SNAKES_NAME  # also registers the game
+        cfg["game"] = SNAKES_NAME
+    elif args.cards:
+        cfg["game"] = "blackjack"
     else:
-        assert False, "not yet implemented"
+        raise ValueError("Must provide which game to train on")
 
     print(f"\n\nconfig={cfg}\n\n")
     with azero.spawn.main_handler():

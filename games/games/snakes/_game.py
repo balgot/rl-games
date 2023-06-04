@@ -82,7 +82,7 @@ class Snakes:
         self._spawn_fruit()
 
     def __str__(self):
-        return f"{self.to_str()}\n{self.snakes}\n{self.board}"
+        return f"{self.to_str()}\n{self.snakes}"
 
     def to_str(self):
         lines = []
@@ -128,6 +128,7 @@ class Snakes:
         )
 
     def _move_snake(self, player, vel, snake: deque):
+        """Return True if we are fruit."""
         # if not moving, dont do anything - cant die
         if vel == (0, 0):
             return False
@@ -152,12 +153,12 @@ class Snakes:
         self.board[snake[-1]] = EMPTY
         snake.pop()
 
-        print("Check collistion:", {EMPTY, FRUIT, _head}, (ny, nx), self.board[ny, nx])
+        # print("Check collistion:", {EMPTY, FRUIT, _head}, (ny, nx))
         if self._is_collision(ny, nx, ignore={EMPTY, FRUIT, _head}):
-            print(f"[INFO] Collision: {(ny, nx)=}\t{snake=}")
+            # print(f"[INFO] Collision: {(ny, nx)=}\t{snake=}")
             self.alive[player] = False
-
-        self.board[snake[0]] = _head
+        else:
+            self.board[snake[0]] = _head
         return False
 
     def is_game_over(self):
