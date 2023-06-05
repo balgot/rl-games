@@ -51,7 +51,7 @@ def register_pyspiel(width: int, height: int, name: str):
         min_utility=-1.0,
         max_utility=1.0,
         utility_sum=0.0,
-        max_game_length=min(width * height, _MAX_MOVES)
+        max_game_length=_MAX_MOVES*2
     )
 
     class _SnakeGame(pyspiel.Game):
