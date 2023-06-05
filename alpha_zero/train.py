@@ -76,7 +76,7 @@ def main():
         from games import SNAKES_NAME  # also registers the game
         cfg["game"] = SNAKES_NAME
     elif args.cards:
-        cfg["game"] = "blackjack"
+        cfg["game"] = "nim"
     else:
         raise ValueError("Must provide which game to train on")
 
