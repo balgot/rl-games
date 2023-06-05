@@ -94,7 +94,7 @@ class _InteractivePlay:
                             return action
 
 
-def play_pygame(game: TTT, player1=None, player2=None, delay=0):
+def play_pygame(game: str, player1=None, player2=None, delay=0):
     igame = _InteractivePlay(game, player1, player2, delay)
     while not igame.is_terminal():
         igame.next_move()
