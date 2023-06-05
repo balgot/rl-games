@@ -3,7 +3,6 @@ import pyspiel
 from ._game import Snakes, ACTIONS, PLAYER1, PLAYER2, PLAYER1_HEAD, PLAYER2_HEAD, FRUIT
 
 
-_ACTION_NUMS = { i: a for i, a in enumerate(ACTIONS.keys()) }
 _MAX_MOVES = 100
 
 # TODO: ignoring randomness of fruit spawn
@@ -74,7 +73,6 @@ def register_pyspiel(width: int, height: int, name: str):
             self._game_over = False
             self._game = Snakes(width, height)
             self.player = 0
-            self._player0_action = None
             self._move_num = 0
 
         def current_player(self):
@@ -84,34 +82,34 @@ def register_pyspiel(width: int, height: int, name: str):
 
         def _legal_actions(self, player):
             del player
-            return list(_ACTION_NUMS.keys())
+            return ACTIONS
 
-        def _apply_action(self, action):
-            action = _ACTION_NUMS[action]
+        def _apply_action(self, action: int):
+            assert not self._game.is_game_over()
             if self.player == 0:
-                assert self._player0_action is None
-                self._player0_action = action
+                self._game.make_move(PLAYER1, action)
                 self.player = 1
             else:
-                assert self._player0_action is not None
                 self._move_num += 1
-                self._game.make_move(PLAYER1, self._player0_action)
                 self._game.make_move(PLAYER2, action)
                 self._game.step()
+                self.player = 0
 
         def is_terminal(self):
             return self._game.is_game_over() or self._move_num >= _MAX_MOVES
 
         def returns(self):
-            if not self._game.is_game_over():
+            winner = self._game.winner()
+            if winner is None:
                 p1 = 0
+            elif winner == PLAYER1:
+                p1 = 1
             else:
-                winner = self._game.winner()
-                p1 = 0 if winner is None else 1 if winner == PLAYER1 else -1
+                p1 = -1
             return [p1, -p1]
 
         def _action_to_string(self, player, action):
-            return f"{player}:{_ACTION_NUMS[action]}"
+            return f"{player}:{'WASD'[action]}"
 
         def __str__(self):
             return str(self._game)
@@ -138,7 +136,7 @@ def register_pyspiel(width: int, height: int, name: str):
 
             _heads = [PLAYER1_HEAD, PLAYER2_HEAD]
             _bodys = [PLAYER1, PLAYER2]
-            if state.player != 0:
+            if player != 0:
                 _heads = _heads[::-1]
                 _bodys = _bodys[::-1]
             for idx, value in enumerate([*_bodys, *_heads, FRUIT]):
@@ -157,10 +155,10 @@ if __name__ == "__main__":
 
     state = game.new_initial_state()
     while not state.is_terminal():
-        print(state.legal_actions())
         action = np.random.choice(state.legal_actions())
         print(state)
-        print(f"{action=}")
+        action_readable = ["UP", "LEFT", "DOWN", "RIGHT"][action]
+        print(f"action={action_readable}")
         state.apply_action(action)
     print(state)
     print(state.returns())
