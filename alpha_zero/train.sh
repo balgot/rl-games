@@ -14,5 +14,4 @@ python train.py --snakes --lr 0.001 --max-steps 100 --max-simulations 20 --batch
 
 echo "training nim models..."
 python train.py --cards --lr 0.001 --max-steps 100 --max-simulations 50 --batch-size 64 --checkpoint-dir "./logs-nim" --wandbproject "pv056-nim"  --wandbname "mlp-big-50"
-python train.py --cards --lr 0.001 --max-steps 30 --max-simulations 50 --batch-size 64 --checkpoint-dir "./logs-nim" --wandbproject "pv056-nim" --wandbname "cnn-50" --model conv2d --nn-width 64 --nn-depth 4
-python train.py --cards --lr 0.001 --max-steps 100 --max-simulations 20 --batch-size 64 --checkpoint-dir "./logs-nim" --wandbproject "pv056-nim"  --wandbname "mlp-mid-20" --nn-width 64 --nn-depth 4
+python train.py --cards --lr 0.0001 --max-steps 100 --max-simulations 20 --batch-size 256 --checkpoint-dir "./logs-nim" --wandbproject "pv056-nim"  --wandbname "mlp-mid-20" --nn-width 64 --nn-depth 2
