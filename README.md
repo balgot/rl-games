@@ -14,7 +14,8 @@ on these two-player games:
 
 The results of the comparison are present in these notebooks:
 * [AlphaZero](https://colab.research.google.com/drive/1l9sGcW466SBNRLsl0KvqVVt4NDJhBShi?usp=sharing)
-* DQN (TBA.)
+* [DQN](https://colab.research.google.com/drive/1E-h5Xd3zd4BHzPwxNXf8lGGncJ0dfA29)
+* [Comparison of AlphaZero and DQN](https://colab.research.google.com/drive/1YZE148MIXglvRXeyBv69KxAUfssOgZ9-?usp=sharing)
 
 
 ## How to run
