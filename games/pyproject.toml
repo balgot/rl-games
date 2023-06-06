@@ -6,7 +6,8 @@ description = "Testing games."
 readme = "README.md"
 requires-python = ">=3.9"
 authors = [
-    { name = "Michal Barnišin", email = "michal.barnisin14+azero@gmail.com" }
+    { name = "Michal Barnišin", email = "michal.barnisin14+azero@gmail.com" },
+    { name = "Adam Bodnár" }
 ]
 classifiers = [
     "Programming Language :: Python :: 3",
