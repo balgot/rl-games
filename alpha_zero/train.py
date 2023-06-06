@@ -68,7 +68,7 @@ def main():
     cfg["nn_depth"] = args.nn_depth
     cfg["uct_c"] = args.uct_c
 
-    wandb.init(config=config, project=args.wandbproject, name=args.wandbname)
+    wandb.init(config=cfg, project=args.wandbproject, name=args.wandbname)
     if args.ttt:
         from games import TTT_NAME  # it registers the game
         cfg["game"] = TTT_NAME

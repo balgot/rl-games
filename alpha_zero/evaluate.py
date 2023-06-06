@@ -134,6 +134,7 @@ def load_player_fn(args):
 
         with open(os.path.join(args.runname, "config.json"), "r") as f:
             cfg = json.load(f)
+            print("Loaded config:", cfg)
             # assume correct game name there
 
         bot, _ = load_trained_bot(cfg, args.runname, args.checkpoint, is_eval=True)
